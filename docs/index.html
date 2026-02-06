@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodori | Free Pomodoro Timer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-900: rgb(24, 24, 24);
+      --primary-500: rgb(109, 109, 109);
+      --primary-400: rgb(136, 136, 136);
+      --jive-yellow: rgb(249, 197, 88);
+      --jive-green: rgb(0, 185, 154);
+      --jive-blue: rgb(5, 144, 203);
+      --jive-pink: rgb(255, 199, 199);
+      --jive-purple: rgb(139, 127, 255);
+      --jive-red: rgb(254, 131, 99);
+      --jive-teal: rgb(125, 226, 242);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--primary-900);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Navigation */
+    nav {
+      position: relative;
+      z-index: 50;
+      padding: 1rem 1.5rem;
+    }
+
+    .nav-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-logo a {
+      text-decoration: none;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--primary-900);
+      letter-spacing: -0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-logo a:hover {
+      color: var(--jive-blue);
+    }
+
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .hero-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--primary-900);
+      margin-bottom: 1.5rem;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: var(--primary-500);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--primary-900);
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 1rem 3rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: var(--jive-green);
+    }
+
+    /* Phone mockup */
+    .phone-mockup {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 3rem auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .phone {
+      width: 240px;
+      height: 480px;
+      background: white;
+      border-radius: 36px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.08);
+      border: 6px solid var(--primary-900);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone:nth-child(2) {
+      margin-top: 2rem;
+    }
+
+    .phone-notch {
+      width: 100px;
+      height: 24px;
+      background: var(--primary-900);
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto;
+    }
+
+    .phone-content {
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .phone-line {
+      height: 10px;
+      border-radius: 5px;
+      background: #eee;
+    }
+
+    .phone-line.short { width: 60%; }
+    .phone-line.medium { width: 80%; }
+    .phone-line.long { width: 100%; }
+    .phone-line.accent { background: var(--jive-yellow); width: 40%; }
+    .phone-line.accent-green { background: var(--jive-green); width: 50%; }
+    .phone-line.accent-blue { background: var(--jive-blue); width: 45%; }
+
+    .phone-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--jive-purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .phone-card {
+      background: #f6f6f6;
+      border-radius: 12px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .phone-btn {
+      height: 36px;
+      border-radius: 18px;
+      background: var(--primary-900);
+      margin-top: 0.5rem;
+    }
+
+    /* Features Section */
+    .features {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .features-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--primary-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .features > .features-inner > p {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: var(--primary-500);
+    }
+
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      margin: 3rem 0;
+    }
+
+    .feature-card {
+      max-width: 310px;
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 1.125rem;
+      color: var(--primary-500);
+      line-height: 1.6;
+    }
+
+    .btn-primary-alt:hover {
+      background: var(--jive-pink);
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1.5rem 2.5rem;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--primary-900);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      transition: color 0.2s;
+    }
+
+    .footer-logo:hover {
+      color: var(--jive-blue);
+    }
+
+    .footer-tagline {
+      color: rgb(107, 114, 128);
+      margin: 1rem 0 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--primary-900);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links li:nth-child(1) a:hover { color: var(--jive-yellow); }
+    .footer-links li:nth-child(2) a:hover { color: var(--jive-green); }
+    .footer-links li:nth-child(3) a:hover { color: var(--jive-purple); }
+    .footer-links li:nth-child(4) a:hover { color: var(--jive-red); }
+
+    .footer-copy {
+      font-size: 0.875rem;
+      color: rgb(107, 114, 128);
+    }
+
+    .footer-copy a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    .footer-copy a:first-of-type:hover { color: var(--jive-teal); }
+    .footer-copy a:last-of-type:hover { color: var(--jive-pink); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .phone-mockup {
+        gap: 1rem;
+      }
+
+      .phone {
+        width: 170px;
+        height: 340px;
+        border-radius: 28px;
+        border-width: 5px;
+      }
+
+      .phone-notch {
+        width: 70px;
+        height: 18px;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .phone-content {
+        padding: 1rem 0.75rem;
+      }
+
+      .phone-avatar {
+        width: 36px;
+        height: 36px;
+      }
+
+      .phone-line {
+        height: 8px;
+      }
+
+      .phone-btn {
+        height: 28px;
+      }
+
+      .features-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .phone {
+        width: 145px;
+        height: 290px;
+        border-radius: 24px;
+        border-width: 4px;
+      }
+
+      .phone:nth-child(2) {
+        margin-top: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- Navigation -->
+    <header>
+      <nav>
+        <div class="nav-inner">
+          <div></div>
+          <div class="nav-logo">
+            <a href="#">Pomodori</a>
+          </div>
+          <div class="nav-right"></div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <h1>Stay focused, get more done</h1>
+          <p>A free, open source Pomodoro timer that helps you break work into focused intervals. No accounts, no tracking, no distractions. Just you and deep work.</p>
+          <a href="#features" class="btn-primary">Try it free</a>
+        </div>
+
+        <!-- Phone Mockups -->
+        <div class="phone-mockup">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-content">
+              <div class="phone-avatar"></div>
+              <div class="phone-line long"></div>
+              <div class="phone-line medium"></div>
+              <div class="phone-line short"></div>
+              <div class="phone-card">
+                <div class="phone-line long"></div>
+                <div class="phone-line medium"></div>
+                <div class="phone-line accent"></div>
+              </div>
+              <div class="phone-card">
+                <div class="phone-line long"></div>
+                <div class="phone-line short"></div>
+                <div class="phone-line accent-green"></div>
+              </div>
+              <div class="phone-btn"></div>
+            </div>
+          </div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-content">
+              <div class="phone-line long"></div>
+              <div class="phone-line medium"></div>
+              <div class="phone-card">
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-red);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div class="phone-line long"></div>
+                    <div class="phone-line short" style="margin-top:6px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-card">
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-teal);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div class="phone-line long"></div>
+                    <div class="phone-line short" style="margin-top:6px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-card">
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-yellow);flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div class="phone-line long"></div>
+                    <div class="phone-line short" style="margin-top:6px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-line accent-blue" style="margin-top:0.5rem;"></div>
+              <div class="phone-line medium"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="features" id="features">
+        <div class="features-inner">
+          <h2>Here's how it works</h2>
+          <p>Simple by design. Powerful by habit.</p>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M31.3664 0.0344C25.8882 0.3966 23.6493 2.2406 18.8843 4.5676L16.4079 6.2832C16.2125 6.6554 15.8223 6.8903 15.6308 7.3007C15.2693 8.0754 15.0709 8.8259 14.8969 9.6543L14.8882 9.6958C14.591 11.1115 14.1714 13.1106 12.6089 13.7653C11.6321 14.1746 10.9238 13.9323 9.9539 13.6831C8.866 13.4035 7.614 13.4332 6.5003 13.5392C4.9649 13.6854 3.6199 14.1003 2.3236 14.8959C0.5162 16.005 -0.1411 17.1467 0.0247 19.2228C0.4315 24.3139 6.5685 24.17 10.2993 26.1191C11.2811 26.632 14.1062 27.9517 14.2386 29.2126C14.3217 30.0043 13.4095 30.7833 12.9003 31.2682C10.7991 33.2691 7.9511 34.9011 10.0295 37.9281C11.2141 39.6534 12.8846 41.2404 14.4221 42.6867C15.5 43.7006 16.4874 44.1932 18.0052 44.2078C19.6315 44.2234 21.306 44.0847 22.9266 44.2283C24.4826 44.3661 25.873 45.4206 27.0555 46.3174L27.0926 46.3455C28.9869 47.782 30.6115 48.5062 33.0069 47.5994C36.2881 46.3573 39.3618 43.8028 41.4251 41.1245C46.0974 35.0593 51.5007 24.6925 44.9975 18.0408C42.4474 15.4325 38.7054 13.6971 36.5469 10.7642C35.8381 9.8012 35.6768 8.5414 35.8777 7.3932C36.1877 5.622 37.7818 4.59 37.5722 2.5935C37.2995 -0.0034 33.2597 -0.0908 31.3664 0.0344Z" fill="#F9C558"/>
+                  <path d="M26.7874 34.231C26.0158 34.1153 25.4072 33.7677 24.9616 33.1881C24.516 32.6085 24.3539 31.9136 24.4753 31.1034L25.8505 21.9314L22.3205 21.4022C21.7033 21.3097 21.1921 21.0358 20.787 20.5806C20.4041 20.109 20.256 19.5839 20.3428 19.0052C20.4295 18.4265 20.7029 17.9843 21.1629 17.6786C21.6422 17.3757 22.1963 17.2319 22.8251 17.2473C23.8484 17.2627 24.7212 17.0977 25.4436 16.7524C26.1852 16.4099 26.7609 15.9243 27.1708 15.2954C27.5276 14.7573 27.9524 14.3575 28.4452 14.0961C28.9573 13.8376 29.5124 13.7531 30.1103 13.8428C30.824 13.9498 31.3776 14.2694 31.7712 14.8018C32.1676 15.3149 32.3123 15.9282 32.2053 16.6419L29.9149 31.919C29.7934 32.7291 29.4347 33.3459 28.8387 33.7693C28.2427 34.1928 27.5589 34.3467 26.7874 34.231Z" fill="white"/>
+                </svg>
+              </div>
+              <h3>Set your timer</h3>
+              <p>Pick a focus interval that works for you. Classic 25 minutes or customize it to match your flow.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M36.4 3.2C30.5 -1.6 22.1 -0.8 16.6 4.4C13.8 7.1 12 10.6 11.3 14.5C10.6 18.3 11.1 22.2 12.8 25.7L12.2 28.1C11.4 31.3 10.5 34.8 10.5 34.9C10.3 35.6 10.5 36.3 10.9 36.8C11.3 37.2 11.8 37.4 12.3 37.4C12.5 37.4 12.6 37.4 12.8 37.3L20.6 35.2C23.9 36.7 27.5 37.1 31 36.4C34.5 35.6 37.6 33.8 40 31.2C42.5 28.5 44.1 25.1 44.6 21.4C45.1 17.7 44.5 14 42.7 10.7C41.2 7.8 39 5.1 36.4 3.2Z" fill="#00B99A"/>
+                  <path d="M23.5 22.5C24.6 22.5 25.5 21.6 25.5 20.5C25.5 19.4 24.6 18.5 23.5 18.5C22.4 18.5 21.5 19.4 21.5 20.5C21.5 21.6 22.4 22.5 23.5 22.5Z" fill="white"/>
+                  <path d="M29.5 22.5C30.6 22.5 31.5 21.6 31.5 20.5C31.5 19.4 30.6 18.5 29.5 18.5C28.4 18.5 27.5 19.4 27.5 20.5C27.5 21.6 28.4 22.5 29.5 22.5Z" fill="white"/>
+                  <path d="M17.5 22.5C18.6 22.5 19.5 21.6 19.5 20.5C19.5 19.4 18.6 18.5 17.5 18.5C16.4 18.5 15.5 19.4 15.5 20.5C15.5 21.6 16.4 22.5 17.5 22.5Z" fill="white"/>
+                </svg>
+              </div>
+              <h3>Do deep work</h3>
+              <p>Block out distractions and focus on what matters. A gentle nudge keeps you on track until your break.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M42.8 5.2H5.2C3.4 5.2 2 6.6 2 8.4V35.6C2 37.4 3.4 38.8 5.2 38.8H18L24 44.8L30 38.8H42.8C44.6 38.8 46 37.4 46 35.6V8.4C46 6.6 44.6 5.2 42.8 5.2Z" fill="#8B7FFF"/>
+                  <rect x="10" y="14" width="20" height="3" rx="1.5" fill="white"/>
+                  <rect x="10" y="21" width="28" height="3" rx="1.5" fill="white"/>
+                  <rect x="10" y="28" width="16" height="3" rx="1.5" fill="white"/>
+                </svg>
+              </div>
+              <h3>Take a break, repeat</h3>
+              <p>Short breaks recharge your brain. After four rounds, take a longer break and come back refreshed.</p>
+            </div>
+          </div>
+
+          <a href="#" class="btn-primary btn-primary-alt">Start focusing</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <a href="#" class="footer-logo">Pomodori</a>
+      <p class="footer-tagline">Free and open source. Focus better.</p>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 <a href="#">Pomodori</a>. Open source on <a href="#">GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
