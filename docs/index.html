@@ -132,85 +132,6 @@
       background: var(--jive-green);
     }
 
-    /* Phone mockup */
-    .phone-mockup {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 3rem auto 0;
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      padding: 0 1rem;
-    }
-
-    .phone {
-      width: 240px;
-      height: 480px;
-      background: white;
-      border-radius: 36px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.08);
-      border: 6px solid var(--primary-900);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .phone:nth-child(2) {
-      margin-top: 2rem;
-    }
-
-    .phone-notch {
-      width: 100px;
-      height: 24px;
-      background: var(--primary-900);
-      border-radius: 0 0 16px 16px;
-      margin: 0 auto;
-    }
-
-    .phone-content {
-      padding: 1.5rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .phone-line {
-      height: 10px;
-      border-radius: 5px;
-      background: #eee;
-    }
-
-    .phone-line.short { width: 60%; }
-    .phone-line.medium { width: 80%; }
-    .phone-line.long { width: 100%; }
-    .phone-line.accent { background: var(--jive-yellow); width: 40%; }
-    .phone-line.accent-green { background: var(--jive-green); width: 50%; }
-    .phone-line.accent-blue { background: var(--jive-blue); width: 45%; }
-
-    .phone-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--jive-purple);
-      margin-bottom: 0.5rem;
-    }
-
-    .phone-card {
-      background: #f6f6f6;
-      border-radius: 12px;
-      padding: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .phone-btn {
-      height: 36px;
-      border-radius: 18px;
-      background: var(--primary-900);
-      margin-top: 0.5rem;
-    }
-
     /* Features Section */
     .features {
       position: relative;
@@ -269,6 +190,117 @@
 
     .btn-primary-alt:hover {
       background: var(--jive-pink);
+    }
+
+    /* Getting Started Section */
+    .getting-started {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem 5rem;
+      background: #f9f9f9;
+    }
+
+    .getting-started-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .getting-started h2 {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--primary-900);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .getting-started > .getting-started-inner > p.section-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: var(--primary-500);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .getting-started h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-900);
+      margin: 2rem 0 0.5rem;
+    }
+
+    .getting-started h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .getting-started ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+    }
+
+    .getting-started ul li {
+      font-size: 1.05rem;
+      color: var(--primary-500);
+      padding: 0.25rem 0;
+    }
+
+    .getting-started ul li::before {
+      content: "\2022";
+      color: var(--jive-green);
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    .getting-started pre {
+      background: var(--primary-900);
+      color: #e0e0e0;
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0.75rem 0 1.5rem;
+    }
+
+    .getting-started code {
+      font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+    }
+
+    .getting-started .inline-code {
+      background: #eee;
+      color: var(--primary-900);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .getting-started .usage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .getting-started .usage-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+    }
+
+    .getting-started .usage-item strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .getting-started .usage-item span {
+      font-size: 0.95rem;
+      color: var(--primary-500);
+    }
+
+    @media (max-width: 600px) {
+      .getting-started .usage-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Footer */
@@ -334,56 +366,9 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .phone-mockup {
-        gap: 1rem;
-      }
-
-      .phone {
-        width: 170px;
-        height: 340px;
-        border-radius: 28px;
-        border-width: 5px;
-      }
-
-      .phone-notch {
-        width: 70px;
-        height: 18px;
-        border-radius: 0 0 12px 12px;
-      }
-
-      .phone-content {
-        padding: 1rem 0.75rem;
-      }
-
-      .phone-avatar {
-        width: 36px;
-        height: 36px;
-      }
-
-      .phone-line {
-        height: 8px;
-      }
-
-      .phone-btn {
-        height: 28px;
-      }
-
       .features-grid {
         flex-direction: column;
         align-items: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .phone {
-        width: 145px;
-        height: 290px;
-        border-radius: 24px;
-        border-width: 4px;
-      }
-
-      .phone:nth-child(2) {
-        margin-top: 1.5rem;
       }
     }
   </style>
@@ -410,68 +395,10 @@
         <div class="hero-inner">
           <h1>Stay focused, get more done</h1>
           <p>A free, open source Pomodoro timer that helps you break work into focused intervals. No accounts, no tracking, no distractions. Just you and deep work.</p>
-          <a href="#features" class="btn-primary">Try it free</a>
+          <a href="https://github.com/miguelbemartin/pomodori" class="btn-primary">GitHub</a>
         </div>
 
-        <!-- Phone Mockups -->
-        <div class="phone-mockup">
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-content">
-              <div class="phone-avatar"></div>
-              <div class="phone-line long"></div>
-              <div class="phone-line medium"></div>
-              <div class="phone-line short"></div>
-              <div class="phone-card">
-                <div class="phone-line long"></div>
-                <div class="phone-line medium"></div>
-                <div class="phone-line accent"></div>
-              </div>
-              <div class="phone-card">
-                <div class="phone-line long"></div>
-                <div class="phone-line short"></div>
-                <div class="phone-line accent-green"></div>
-              </div>
-              <div class="phone-btn"></div>
-            </div>
-          </div>
-          <div class="phone">
-            <div class="phone-notch"></div>
-            <div class="phone-content">
-              <div class="phone-line long"></div>
-              <div class="phone-line medium"></div>
-              <div class="phone-card">
-                <div style="display:flex;gap:0.5rem;align-items:center;">
-                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-red);flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div class="phone-line long"></div>
-                    <div class="phone-line short" style="margin-top:6px;"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="phone-card">
-                <div style="display:flex;gap:0.5rem;align-items:center;">
-                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-teal);flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div class="phone-line long"></div>
-                    <div class="phone-line short" style="margin-top:6px;"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="phone-card">
-                <div style="display:flex;gap:0.5rem;align-items:center;">
-                  <div style="width:32px;height:32px;border-radius:50%;background:var(--jive-yellow);flex-shrink:0;"></div>
-                  <div style="flex:1;">
-                    <div class="phone-line long"></div>
-                    <div class="phone-line short" style="margin-top:6px;"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="phone-line accent-blue" style="margin-top:0.5rem;"></div>
-              <div class="phone-line medium"></div>
-            </div>
-          </div>
-        </div>
+
       </section>
 
       <!-- Features Section -->
@@ -518,8 +445,51 @@
               <p>Short breaks recharge your brain. After four rounds, take a longer break and come back refreshed.</p>
             </div>
           </div>
+        </div>
+      </section>
+      <!-- Getting Started Section -->
+      <section class="getting-started" id="getting-started">
+        <div class="getting-started-inner">
+          <h2>Getting Started</h2>
+          <p class="section-subtitle">Build from source and run it in under a minute.</p>
 
-          <a href="#" class="btn-primary btn-primary-alt">Start focusing</a>
+          <h3>Prerequisites</h3>
+          <ul>
+            <li>macOS 13 (Ventura) or later</li>
+            <li>Swift 5.9+ (included with Xcode 15+)</li>
+          </ul>
+
+          <h3>Build &amp; Run from the Command Line</h3>
+<pre><code>git clone https://github.com/mamartin/pomodori.git
+cd pomodori
+swift build
+swift run</code></pre>
+
+          <h3>Build &amp; Run with Xcode</h3>
+<pre><code>open Package.swift
+# Select the Pomodori scheme, choose "My Mac", then press Cmd+R</code></pre>
+
+          <p class="section-subtitle" style="margin-top:1.5rem;">The app runs as a menu bar item &mdash; look for the tomato icon in your macOS menu bar.</p>
+
+          <h3>Usage</h3>
+          <div class="usage-grid">
+            <div class="usage-item">
+              <strong>Start / Pause / Resume</strong>
+              <span>Control a 25-minute work session</span>
+            </div>
+            <div class="usage-item">
+              <strong>Reset</strong>
+              <span>Restart the current timer</span>
+            </div>
+            <div class="usage-item">
+              <strong>Skip</strong>
+              <span>Jump to the next session</span>
+            </div>
+            <div class="usage-item">
+              <strong>Quit</strong>
+              <span>Exit the app</span>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -527,14 +497,7 @@
     <!-- Footer -->
     <footer>
       <a href="#" class="footer-logo">Pomodori</a>
-      <p class="footer-tagline">Free and open source. Focus better.</p>
-      <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <p class="footer-copy">&copy; 2026 <a href="#">Pomodori</a>. Open source on <a href="#">GitHub</a></p>
+      <p class="footer-copy">&copy; 2026 <a href="#">Pomodori</a>. Open source on <a href="https://github.com/miguelbemartin/pomodori">GitHub</a></p>
     </footer>
   </div>
 </body>
