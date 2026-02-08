@@ -2,15 +2,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Pomodoro",
+    name: "Pomodori",
     platforms: [.macOS(.v13)],
     targets: [
         .executableTarget(
-            name: "Pomodoro",
-            path: "Sources/Pomodoro",
+            name: "Pomodori",
+            path: "Sources/Pomodori",
             exclude: ["Info.plist"],
             linkerSettings: [
-                .unsafeFlags(["-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", "Sources/Pomodoro/Info.plist"])
+                .unsafeFlags(["-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", "Sources/Pomodori/Info.plist"])
             ]
         )
     ]
