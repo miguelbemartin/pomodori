@@ -1,2 +1,2 @@
 # 🍅 Pomodori
-A simple Pomodoro App for your Mac
+A simple Pomodoro App for Mac
